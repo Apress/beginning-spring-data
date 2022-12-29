@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  redis-db:
+    image: redis:6.2
+    restart: always
+    ports:
+      - 6379:6379
+      
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - '8001:8001'

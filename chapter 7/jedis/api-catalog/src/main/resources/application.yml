@@ -1,0 +1,22 @@
+management:
+  endpoints:    
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/catalog
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2000   #connection timed out
+    jedis:
+      pool:
+        max-idle: 6    #Maximum number of idles
+        max-active: 10 #maximum connection
+        min-idle: 2    #Minimum number of idles

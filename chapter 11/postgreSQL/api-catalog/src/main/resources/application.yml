@@ -1,0 +1,42 @@
+management:
+  endpoints:    
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/catalog
+
+spring:
+  r2dbc:
+    username: postgres
+    password: postgres
+    url: r2dbc:postgresql://localhost:5432/catalog?autoReconnect=true
+    pool:
+      max-create-connection-time: 2s
+      initial-size: 5
+      max-size: 10
+
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/catalog?autoReconnect=true"
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    validation-query: select 1;
+    maxActive: 100
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    sql-migration-prefix: V
+    sql-migration-separator: __
+    sql-migration-suffixes: .sql
+    locations: classpath:db/migration
+    repeatable-sql-migration-prefix: R
+    baseline-on-migrate: true
+    baseline-version: 0

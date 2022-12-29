@@ -1,0 +1,19 @@
+management:
+  endpoints:    
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/catalog
+
+redis:
+  master:
+    host: localhost
+    port: 6379
+  slaves:
+    - host: localhost
+      port: 6380

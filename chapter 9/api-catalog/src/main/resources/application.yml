@@ -1,0 +1,21 @@
+management:
+  endpoints:    
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/catalog
+
+spring:
+  neo4j:
+    uri: bolt://localhost:7687
+    database: catalog
+    authentication:
+      username: neo4j
+      password: changeme
+
+

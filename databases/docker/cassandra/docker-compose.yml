@@ -1,0 +1,78 @@
+version: "2.1"
+
+services:
+  cassandra-1:
+    image: cassandra:4.0.5
+    container_name: cassandra-1
+    environment:
+      CASSANDRA_CLUSTER_NAME: twa
+      CASSANDRA_DC: datacenter1
+      MAX_HEAP_SIZE: 600M
+      HEAP_NEWSIZE: 100M
+    ports:
+      - '9042:9042'
+      - '9160:9160'
+    networks:
+      cassclus:
+        ipv4_address: 10.0.75.11
+
+  cassandra-2:
+    image: cassandra:4.0.5
+    container_name: cassandra-2
+    environment:
+      CASSANDRA_CLUSTER_NAME: twa
+      CASSANDRA_DC: datacenter1
+      CASSANDRA_SEEDS: 10.0.75.11
+      MAX_HEAP_SIZE: 600M
+      HEAP_NEWSIZE: 100M
+    ports:
+      - '9043:9042'
+      - '9161:9160'
+    depends_on:
+      - cassandra-1
+    networks:
+      cassclus:
+        ipv4_address: 10.0.75.12
+
+  cassandra-3:
+    image: cassandra:4.0.5
+    container_name: cassandra-3
+    environment:
+      CASSANDRA_CLUSTER_NAME: twa
+      CASSANDRA_DC: datacenter1
+      CASSANDRA_SEEDS: 10.0.75.11
+      MAX_HEAP_SIZE: 600M
+      HEAP_NEWSIZE: 100M
+    ports:
+      - '9044:9042'
+      - '9162:9160'
+    depends_on:
+      - cassandra-1
+    networks:
+      cassclus:
+        ipv4_address: 10.0.75.13
+
+  cassandra-web:
+    image: dcagatay/cassandra-web      
+    environment:
+      CASSANDRA_HOST_IPS: 10.0.75.11,10.0.75.12,10.0.75.13
+      CASSANDRA_PORT: 9042 
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - cassandra-1
+      - cassandra-2
+      - cassandra-3  
+    networks:
+      cassclus:
+        ipv4_address: 10.0.75.15
+
+networks:
+  cassclus:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.75.0/24
+          gateway: 10.0.75.1

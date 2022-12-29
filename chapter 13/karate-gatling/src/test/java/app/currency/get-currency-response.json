@@ -1,0 +1,13 @@
+{
+  "id":1,
+  "code":"ARS",
+  "description":"Peso argentino",
+  "enable":null,
+  "decimalPlaces":2,
+  "symbol":"$",
+  "audit":{
+    "createdOn":"2022-07-26T10:52:46.836552",
+    "updatedOn":null
+  },
+  "version":0
+}

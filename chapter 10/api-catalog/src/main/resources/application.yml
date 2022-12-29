@@ -1,0 +1,22 @@
+management:
+  endpoints:    
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/catalog
+
+spring:
+  data:
+    cassandra:
+      keyspace-name: twa
+      schema-action: recreate
+      local-datacenter: datacenter1
+      contact-points: # The different nodes that Cassandra have
+        - 127.0.0.1:9042
+        - 127.0.0.1:9043
+        - 127.0.0.1:9044

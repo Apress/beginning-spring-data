@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  redis-db:
+    image: redis:6.2
+    container_name: master
+    restart: always
+    ports:
+      - 6379:6379
+
+  redis-slave:
+    image: redis:6.2
+    container_name: slave
+    ports:
+      - 6380:6379
+    command: redis-server --slaveof master 6379
+    depends_on:
+      - redis-db
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - 8001:8001

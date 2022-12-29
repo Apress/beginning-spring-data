@@ -1,0 +1,23 @@
+management:
+  endpoints:    
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/catalog
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/catalog?autoReconnect=true"
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    validation-query: select 1;
+    maxActive: 100
+  jpa:
+    show-sql: true
+    generate-ddl: false
